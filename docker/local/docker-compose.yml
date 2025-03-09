@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ../..
+      dockerfile: docker/local/Dockerfile
+    volumes:
+      - ../../django_app:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=project_name.settings.local
+      - DEBUG=True
+      - SECRET_KEY=local-development-key
+    command: python manage.py runserver 0.0.0.0:8000
+
+  db:
+    image: postgres:14
+    volumes:
+      - postgres_data_local:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=db_local
+      - POSTGRES_USER=postgres_user
+      - POSTGRES_PASSWORD=postgres_password
+    ports:
+      - "5433:5432"
+
+volumes:
+  postgres_data_local:

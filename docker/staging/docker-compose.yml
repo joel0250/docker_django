@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ../..
+      dockerfile: docker/staging/Dockerfile
+    volumes:
+      - ../../django_app/static:/app/static
+      - ../../django_app/media:/app/media
+    expose:
+      - "8000"
+    ports:
+      - "8001:8000"  # For direct access to Django during testing
+    environment:
+      - DJANGO_SETTINGS_MODULE=project_name.settings.staging
+      - DEBUG=False
+      - SECRET_KEY=staging-secret-key-change-this
+      - ALLOWED_HOSTS=staging.mydomain.com,localhost,127.0.0.1
+      - POSTGRES_DB=db_staging
+      - POSTGRES_USER=postgres_user
+      - POSTGRES_PASSWORD=postgres_password_staging
+      - POSTGRES_HOST=db
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    volumes:
+      - postgres_data_staging:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=db_staging
+      - POSTGRES_USER=postgres_user
+      - POSTGRES_PASSWORD=postgres_password_staging
+    ports:
+      - "5434:5432"  # Different port from local env
+      
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "8080:80"  # Using port 8080 for testing
+    depends_on:
+      - web
+    volumes:
+      - ../../django_app/static:/app/static
+      - ../../django_app/media:/app/media
+
+volumes:
+  postgres_data_staging:

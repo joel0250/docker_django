@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ../..
+      dockerfile: docker/production/Dockerfile
+    volumes:
+      - ../../django_app/static:/app/static
+      - ../../django_app/media:/app/media
+    expose:
+      - "8000"
+    ports:
+      - "8002:8000"  # For direct access to Django during testing
+    environment:
+      - DJANGO_SETTINGS_MODULE=project_name.settings.production
+      - DEBUG=False
+      - SECRET_KEY=production-secret-key-change-this-in-prod
+      - ALLOWED_HOSTS=example.com,www.example.com,52.66.119.214,localhost,127.0.0.1
+      - POSTGRES_DB=db_production
+      - POSTGRES_USER=postgres_user
+      - POSTGRES_PASSWORD=postgres_password_secure
+      - POSTGRES_HOST=db
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: postgres:14
+    volumes:
+      - postgres_data_production:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=db_production
+      - POSTGRES_USER=postgres_user
+      - POSTGRES_PASSWORD=postgres_password_secure
+    ports:
+      - "5435:5432"  # Different port from local/staging
+    restart: always
+
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8443:443"  # For local HTTPS testing
+    depends_on:
+      - web
+    volumes:
+      - ../../django_app/static:/app/static
+      - ../../django_app/media:/app/media
+      - ./nginx/ssl:/etc/nginx/ssl
+    restart: always
+
+volumes:
+  postgres_data_production:
