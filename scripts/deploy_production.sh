@@ -1,8 +1,10 @@
 #!/bin/bash
 # Script to deploy the application to production
 
+# Get the project directory (where this script is located)
+PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 # Change to the project directory
-cd /home/joel-thomas/Projects/docker_django
+cd "$PROJECT_DIR"
 
 # Variables
 ENVIRONMENT=${1:-production}

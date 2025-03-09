@@ -69,7 +69,7 @@ docker_django/
 
 4. Generate SSL certificates:
    ```bash
-   sudo ./ssl.sh
+   sudo bash scripts/generate_ssl.sh
    ```
 
 5. Deploy the application:
@@ -106,7 +106,7 @@ For production deployment with HTTPS, you need SSL certificates. You have two op
 If you have a domain pointed to your server:
 
 ```bash
-sudo ./ssl.sh yourdomain.com admin@yourdomain.com
+sudo bash scripts/generate_ssl.sh yourdomain.com admin@yourdomain.com
 ```
 
 This will:
@@ -119,7 +119,7 @@ This will:
 If you're accessing the server directly via IP (52.66.119.214):
 
 ```bash
-sudo ./ssl.sh
+sudo bash scripts/generate_ssl.sh
 ```
 
 This will:
@@ -244,7 +244,7 @@ sudo certbot renew
 Then update the certificates in the project:
 
 ```bash
-sudo ./ssl.sh yourdomain.com
+sudo bash scripts/generate_ssl.sh yourdomain.com
 ```
 
 ## Security Best Practices
