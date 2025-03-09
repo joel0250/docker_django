@@ -37,6 +37,8 @@ docker-compose -f $DOCKER_DIR/docker-compose.yml exec web python manage.py colle
 # Create superuser if not exists
 echo "Checking if superuser exists..."
 docker-compose -f $DOCKER_DIR/docker-compose.yml exec web python -c "
+import django
+django.setup()
 from django.contrib.auth.models import User
 if not User.objects.filter(username='admin').exists():
     print('Creating superuser...')
