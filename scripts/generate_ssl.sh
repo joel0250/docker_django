@@ -7,11 +7,14 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
+# Get the project directory (where this script is located)
+PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
 # Set variables
 DOMAIN=${1:-example.com}
 SERVER_IP=${2:-52.66.119.214}
 EMAIL=${3:-admin@example.com}
-CERT_DIR="/home/joel-thomas/Projects/docker_django/docker/production/nginx/ssl"
+CERT_DIR="$PROJECT_DIR/docker/production/nginx/ssl"
 
 # Make sure directory exists
 mkdir -p $CERT_DIR
