@@ -1,5 +1,9 @@
 version: '3.8'
 
+networks:
+  django_network:
+    driver: bridge
+
 services:
   web:
     build:
@@ -8,10 +12,13 @@ services:
     volumes:
       - ../../django_app/static:/app/static
       - ../../django_app/media:/app/media
+      - ../../django_app/logs:/app/logs
     expose:
       - "8000"
     ports:
       - "8002:8000"  # For direct access to Django during testing
+    networks:
+      - django_network
     environment:
       - DJANGO_SETTINGS_MODULE=project_name.settings.production
       - DEBUG=False
@@ -36,6 +43,8 @@ services:
     ports:
       - "5435:5432"  # Different port from local/staging
     restart: always
+    networks:
+      - django_network
 
   nginx:
     build:
@@ -51,6 +60,8 @@ services:
       - ../../django_app/media:/app/media
       - ./nginx/ssl:/etc/nginx/ssl
     restart: always
+    networks:
+      - django_network
 
 volumes:
   postgres_data_production:

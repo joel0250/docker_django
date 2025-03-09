@@ -15,8 +15,8 @@ RUN pip install --upgrade pip && \
 # Copy project
 COPY django_app /app/
 
-# Create directories for static and media files
-RUN mkdir -p /app/static /app/media
+# Create directories for static, media, and logs
+RUN mkdir -p /app/static /app/media /app/logs
 
 # Run the application with production settings
 EXPOSE 8000
