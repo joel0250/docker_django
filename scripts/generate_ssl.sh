@@ -11,7 +11,7 @@ fi
 PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 # Set variables
-DOMAIN=${1:-example.com}
+DOMAIN=${1:-52.66.119.214}
 SERVER_IP=${2:-52.66.119.214}
 EMAIL=${3:-admin@example.com}
 CERT_DIR="$PROJECT_DIR/docker/production/nginx/ssl"
@@ -28,7 +28,7 @@ if ! command -v certbot &> /dev/null; then
 fi
 
 # Check which method to use
-if [[ "$DOMAIN" == "example.com" || "$DOMAIN" == "localhost" ]]; then
+if [[ "$DOMAIN" == "example.com" || "$DOMAIN" == "localhost" || "$DOMAIN" == "52.66.119.214"]]; then
     echo "Generating self-signed certificate for local development..."
     echo $DOMAIN;
     
