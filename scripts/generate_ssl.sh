@@ -30,6 +30,7 @@ fi
 # Check which method to use
 if [[ "$DOMAIN" == "example.com" || "$DOMAIN" == "localhost" ]]; then
     echo "Generating self-signed certificate for local development..."
+    echo $DOMAIN;
     
     # Generate self-signed certificate
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
