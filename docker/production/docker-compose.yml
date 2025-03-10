@@ -23,7 +23,8 @@ services:
       - DJANGO_SETTINGS_MODULE=project_name.settings.production
       - DEBUG=False
       - SECRET_KEY=production-secret-key-change-this-in-prod
-      - ALLOWED_HOSTS=example.com,www.example.com,52.66.119.214,localhost,127.0.0.1
+#      - ALLOWED_HOSTS=example.com,www.example.com,52.66.119.214,localhost,127.0.0.1
+      - ALLOWED_HOSTS=*
       - POSTGRES_DB=db_production
       - POSTGRES_USER=postgres_user
       - POSTGRES_PASSWORD=postgres_password_secure
