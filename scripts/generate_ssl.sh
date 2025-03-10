@@ -11,7 +11,7 @@ fi
 PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 # Set variables
-DOMAIN=${1:-52.66.119.214}
+DOMAIN=${1:-example.com}
 SERVER_IP=${2:-52.66.119.214}
 EMAIL=${3:-admin@example.com}
 CERT_DIR="$PROJECT_DIR/docker/production/nginx/ssl"
@@ -28,16 +28,15 @@ if ! command -v certbot &> /dev/null; then
 fi
 
 # Check which method to use
-if [[ "$DOMAIN" == "example.com" || "$DOMAIN" == "localhost" || "$DOMAIN" == "52.66.119.214"]]; then
+if [[ "$DOMAIN" == "example.com" || "$DOMAIN" == "localhost" ]]; then
     echo "Generating self-signed certificate for local development..."
-    echo $DOMAIN;
     
     # Generate self-signed certificate
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
         -keyout $CERT_DIR/private.key \
         -out $CERT_DIR/certificate.crt \
-        -subj "/C=US/ST=State/L=City/O=Organization/CN=$DOMAIN" \
-        -addext "subjectAltName = DNS:$DOMAIN, DNS:www.$DOMAIN, IP:$SERVER_IP, DNS:localhost"
+        -subj "/C=US/ST=State/L=City/O=Organization/CN=52.66.119.214" \
+        -addext "subjectAltName = DNS:52.66.119.214, DNS:www.52.66.119.214, IP:$SERVER_IP, DNS:localhost"
     
     echo "Self-signed certificate generated successfully!"
     echo "Certificate saved to $CERT_DIR/certificate.crt"
