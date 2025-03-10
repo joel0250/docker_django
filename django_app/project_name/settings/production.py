@@ -9,6 +9,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'production-secret-key-change-this-in-
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+DEBUG = True
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'example.com,www.example.com,52.66.119.214,localhost,127.0.0.1').split(',')
 
