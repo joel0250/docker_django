@@ -11,7 +11,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'production-secret-key-change-this-in-
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 DEBUG = True
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'example.com,www.example.com,52.66.119.214,localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'cookmyday.com,www.cookmyday.com,52.66.119.214,localhost,127.0.0.1').split(',')
 
 # Database settings for production
 DATABASES = {
